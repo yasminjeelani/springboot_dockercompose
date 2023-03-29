@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  mysqldb:
+    image: mysql:8
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: springapp
+      MYSQL_DATABASE: springapp
+      MYSQL_USER: springapp
+      MYSQL_PASSWORD: springapp
+    
+  springapp:
+    depends_on:
+      - mysqldb
+    image: springapp:1.0
+    ports:
+      - "8080:8080"
+    restart: always
+
+volumes:
+  db_data: {}
